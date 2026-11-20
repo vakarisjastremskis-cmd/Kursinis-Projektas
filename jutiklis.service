@@ -1,0 +1,10 @@
+[Unit]
+Description=Imituojamas temperaturos jutiklis
+After=mosquitto.service
+
+[Service]
+ExecStart=/bin/bash -c 'while true; do mosquitto_pub -u sensor -P Sensor2026lab -r -h localhost -t sensor/temperatura -m "$(shuf -i 20-29 -n 1)"; sleep 5; done'
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
